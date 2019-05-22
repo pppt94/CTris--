@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QPainter>
+#include <QTimer>
 #include <QKeyEvent>
 #include "piece.h"
 
@@ -21,7 +22,13 @@ public:
     void createBoard();
 
     QColor gameboard[20*10];
+    QTimer *timer;
     Piece curr_piece;
+
+public slots:
+    void updateBoard();
+
+
 };
 
 #endif // GAMEBOARD_H

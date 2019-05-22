@@ -11,3 +11,7 @@ void Piece::move_horizontal(int direction)
 {
     x += direction;
 }
+void Piece::move_vertical()
+{
+    y++;
+}

@@ -150,8 +150,10 @@ Gameboard::Gameboard(QWidget *parent)
 {
 
     createBoard();
-
-
+    timer  = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
+    timer->start(1000);
+    //timer->setInterval(50);
 }
 
 Gameboard::~Gameboard()
@@ -164,6 +166,12 @@ void Gameboard::createBoard(){
     for(int i = 0; i < 200; i++){
             gameboard[i] = QColor(Qt::white);
     }
+}
+
+void Gameboard::updateBoard()
+{
+    curr_piece.move_vertical();
+    this->repaint();
 }
 
 void Gameboard::keyPressEvent(QKeyEvent *event)
