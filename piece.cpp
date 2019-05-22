@@ -5,7 +5,7 @@ Piece::Piece()
     x = 2;
     y = 2;
     rotation = 0;
-    n = 0;
+    n = 2;
 }
 void Piece::move_horizontal(int direction)
 {
@@ -14,4 +14,11 @@ void Piece::move_horizontal(int direction)
 void Piece::move_vertical()
 {
     y++;
+}
+void Piece::rotate()
+{
+    rotation++;
+    if(rotation == 4){
+        rotation = 0;
+    }
 }

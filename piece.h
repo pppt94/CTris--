@@ -13,6 +13,7 @@ public:
     Piece();
     void move_horizontal(int direction);
     void move_vertical();
+    void rotate();
 
     int x, y, rotation;
     int n;

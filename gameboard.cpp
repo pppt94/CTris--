@@ -185,6 +185,10 @@ void Gameboard::keyPressEvent(QKeyEvent *event)
         curr_piece.move_horizontal(1);
         this->repaint();
         break;
+    case Qt::Key_Up:
+        curr_piece.rotate();
+        this->repaint();
+        break;
     }
 }
 
