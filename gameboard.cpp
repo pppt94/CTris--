@@ -174,15 +174,35 @@ void Gameboard::updateBoard()
     this->repaint();
 }
 
+bool Gameboard::checkCollision()
+{
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
+                if((curr_piece.x + j) < 0 || (curr_piece.x + j) == 10){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 void Gameboard::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Left:
         curr_piece.move_horizontal(-1);
+        if(checkCollision()){
+            curr_piece.move_horizontal(1);
+        }
         this->repaint();
         break;
     case Qt::Key_Right:
         curr_piece.move_horizontal(1);
+        if(checkCollision()){
+            curr_piece.move_horizontal(-1);
+        }
         this->repaint();
         break;
     case Qt::Key_Up:

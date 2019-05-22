@@ -20,6 +20,7 @@ public:
     virtual void paintEvent(QPaintEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void createBoard();
+    bool checkCollision();
 
     QColor gameboard[20*10];
     QTimer *timer;
