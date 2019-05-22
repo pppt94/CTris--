@@ -11,8 +11,11 @@ class Piece
 {
 public:
     Piece();
+    void move_horizontal(int direction);
+
     int x, y, rotation;
     int n;
+
 };
 
 #endif // PIECE_H

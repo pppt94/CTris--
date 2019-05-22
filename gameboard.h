@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QPainter>
+#include <QKeyEvent>
 #include "piece.h"
 
 
@@ -16,6 +17,7 @@ public:
     ~Gameboard();
 
     virtual void paintEvent(QPaintEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     void createBoard();
 
     QColor gameboard[20*10];

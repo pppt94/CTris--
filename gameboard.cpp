@@ -166,7 +166,19 @@ void Gameboard::createBoard(){
     }
 }
 
-
+void Gameboard::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Left:
+        curr_piece.move_horizontal(-1);
+        this->repaint();
+        break;
+    case Qt::Key_Right:
+        curr_piece.move_horizontal(1);
+        this->repaint();
+        break;
+    }
+}
 
 void Gameboard::paintEvent(QPaintEvent *event){
 
