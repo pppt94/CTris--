@@ -32,5 +32,5 @@ void Piece::resetPiece()
     x = 2;
     y = 0;
     rotation = 0;
-    n = qrand() % 7;
+    n = 1;
 }
