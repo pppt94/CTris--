@@ -176,6 +176,7 @@ void Gameboard::updateBoard()
     if(checkCollision()){
         curr_piece.move_vertical(-1);
         lockPiece();
+        clearRows();
         curr_piece.resetPiece();
     }
     this->repaint();
@@ -207,6 +208,39 @@ void Gameboard::lockPiece()
             }
         }
     }
+}
+
+void Gameboard::clearRows()
+{
+    bool ifFull = true;
+    int rowsCount = 0;
+    int start = 0;
+
+    for(int i = 19; i >= 0; i--){
+        ifFull = true;
+        for(int j = 0; j < 10; j++){
+            if(gameboard[i][j] == QColor(Qt::white)){
+                ifFull = false;
+            }
+        }
+        if(ifFull){
+            start = start < i ? i : start;
+            rowsCount++;
+        }
+
+    }
+
+    for(int i = start; i >= 0; i--){
+        for(int j = 0; j < 10; j++){
+            if(i-rowsCount < 0){
+                gameboard[i][j] = QColor(Qt::white);
+            }
+            else {
+                gameboard[i][j] = gameboard[i-rowsCount][j];
+            }
+        }
+    }
+
 }
 
 void Gameboard::keyPressEvent(QKeyEvent *event)

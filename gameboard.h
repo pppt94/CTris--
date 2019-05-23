@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QTimer>
 #include <QKeyEvent>
+#include <iostream>
 #include "piece.h"
 
 
@@ -22,6 +23,7 @@ public:
     void createBoard();
     bool checkCollision();
     void lockPiece();
+    void clearRows();
 
     QColor gameboard[20][10];
     QTimer *timer;
