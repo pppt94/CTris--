@@ -24,24 +24,24 @@ std::string shapes[7][4][5] =
       ".....",
       "....."}},
     {{".....",
-      "....."
-      "..XX.",
-      "..XX.",
+      ".XX.."
+      ".XX..",
+      ".....",
       "....."},
      {".....",
-      "....."
+      ".XX.."
       ".XX..",
-      ".XX..",
+      ".....",
       "....."},
      {".....",
-      "....."
+      ".XX.."
       ".XX..",
-      ".XX..",
+      ".....",
       "....."},
      {".....",
-      "....."
+      ".XX.."
       ".XX..",
-      ".XX..",
+      ".....",
       "....."}},
     {{".....",
       ".....",
@@ -227,7 +227,10 @@ void Gameboard::keyPressEvent(QKeyEvent *event)
         this->repaint();
         break;
     case Qt::Key_Up:
-        curr_piece.rotate();
+        curr_piece.rotate(1);
+        if(checkCollision()){
+            curr_piece.rotate(-1);
+        }
         this->repaint();
         break;
     case Qt::Key_Down:

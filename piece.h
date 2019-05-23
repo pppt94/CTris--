@@ -9,7 +9,7 @@ public:
     Piece();
     void move_horizontal(int direction);
     void move_vertical(int direction);
-    void rotate();
+    void rotate(int direction);
     void resetPiece();
 
     int x, y, rotation;
