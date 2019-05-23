@@ -21,8 +21,9 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void createBoard();
     bool checkCollision();
+    void lockPiece();
 
-    QColor gameboard[20*10];
+    QColor gameboard[20][10];
     QTimer *timer;
     Piece curr_piece;
 

@@ -152,7 +152,7 @@ Gameboard::Gameboard(QWidget *parent)
     createBoard();
     timer  = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
-    timer->start(1000);
+    timer->start(600);
     //timer->setInterval(50);
 }
 
@@ -163,14 +163,20 @@ Gameboard::~Gameboard()
 
 void Gameboard::createBoard(){
 
-    for(int i = 0; i < 200; i++){
-            gameboard[i] = QColor(Qt::white);
+    for(int i = 0; i < 20; i++){
+        for(int j = 0; j < 10; j++){
+            gameboard[i][j] = QColor(Qt::white);
+        }
     }
 }
 
 void Gameboard::updateBoard()
 {
-    curr_piece.move_vertical();
+    curr_piece.move_vertical(1);
+    if(checkCollision()){
+        curr_piece.move_vertical(-1);
+        lockPiece();
+    }
     this->repaint();
 }
 
@@ -182,10 +188,24 @@ bool Gameboard::checkCollision()
                 if((curr_piece.x + j) < 0 || (curr_piece.x + j) == 10){
                     return true;
                 }
+                if((curr_piece.y + i) == 20){
+                    return true;
+                }
             }
         }
     }
     return false;
+}
+
+void Gameboard::lockPiece()
+{
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
+                gameboard[curr_piece.y+i][curr_piece.x+j] = piece_col[curr_piece.n];
+            }
+        }
+    }
 }
 
 void Gameboard::keyPressEvent(QKeyEvent *event)
@@ -218,7 +238,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
 
     for(int i = 0; i < 20; i++){
         for(int j = 0; j < 10; j++){
-            painter.setBrush(QBrush(gameboard[i*10 + j], Qt::SolidPattern));
+            painter.setBrush(QBrush(gameboard[i][j], Qt::SolidPattern));
             painter.drawRect(QRect(j*20, i*20, 20, 20));
         }
     }

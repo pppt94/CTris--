@@ -12,7 +12,7 @@ class Piece
 public:
     Piece();
     void move_horizontal(int direction);
-    void move_vertical();
+    void move_vertical(int direction);
     void rotate();
 
     int x, y, rotation;
