@@ -243,6 +243,15 @@ void Gameboard::clearRows()
 
 }
 
+void Gameboard::instantDrop()
+{
+    while(!checkCollision()){
+        curr_piece.move_vertical(1);
+    }
+    curr_piece.move_vertical(-1);
+
+    this->repaint();
+}
 void Gameboard::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
@@ -269,6 +278,9 @@ void Gameboard::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Down:
         updateBoard();
+        break;
+    case Qt::Key_Space:
+        instantDrop();
         break;
     }
 }

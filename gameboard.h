@@ -24,6 +24,7 @@ public:
     bool checkCollision();
     void lockPiece();
     void clearRows();
+    void instantDrop();
 
     QColor gameboard[20][10];
     QTimer *timer;
