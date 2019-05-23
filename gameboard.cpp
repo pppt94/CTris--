@@ -25,8 +25,8 @@ std::string shapes[7][4][5] =
       "....."}},
     {{".....",
       "....."
-      ".XX..",
-      ".XX..",
+      "..XX.",
+      "..XX.",
       "....."},
      {".....",
       "....."
@@ -152,7 +152,7 @@ Gameboard::Gameboard(QWidget *parent)
     createBoard();
     timer  = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
-    timer->start(600);
+    timer->start(400);
     //timer->setInterval(50);
 }
 
@@ -176,6 +176,7 @@ void Gameboard::updateBoard()
     if(checkCollision()){
         curr_piece.move_vertical(-1);
         lockPiece();
+        curr_piece.resetPiece();
     }
     this->repaint();
 }
@@ -188,7 +189,7 @@ bool Gameboard::checkCollision()
                 if((curr_piece.x + j) < 0 || (curr_piece.x + j) == 10){
                     return true;
                 }
-                if((curr_piece.y + i) == 20){
+                if((curr_piece.y + i) == 20 || gameboard[curr_piece.y+i][curr_piece.x+j] != QColor(Qt::white)){
                     return true;
                 }
             }
@@ -228,6 +229,9 @@ void Gameboard::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Up:
         curr_piece.rotate();
         this->repaint();
+        break;
+    case Qt::Key_Down:
+        updateBoard();
         break;
     }
 }

@@ -2,10 +2,12 @@
 
 Piece::Piece()
 {
+    qsrand(time(NULL));
+
     x = 2;
     y = 2;
     rotation = 0;
-    n = 2;
+    n = qrand() % 7;
 }
 void Piece::move_horizontal(int direction)
 {
@@ -21,4 +23,11 @@ void Piece::rotate()
     if(rotation == 4){
         rotation = 0;
     }
+}
+void Piece::resetPiece()
+{
+    x = 2;
+    y = 2;
+    rotation = 0;
+    n = qrand() % 7;
 }

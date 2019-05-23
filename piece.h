@@ -2,10 +2,6 @@
 #define PIECE_H
 
 #include <QMainWindow>
-#include <stdlib.h>
-#include <time.h>
-
-
 
 class Piece
 {
@@ -14,9 +10,11 @@ public:
     void move_horizontal(int direction);
     void move_vertical(int direction);
     void rotate();
+    void resetPiece();
 
     int x, y, rotation;
     int n;
+
 
 };
 
