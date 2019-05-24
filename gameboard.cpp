@@ -146,20 +146,18 @@ std::string shapes[7][4][5] =
 QColor piece_col[7] = {Qt::red, Qt::yellow, Qt::green, Qt::blue, Qt::cyan, Qt::magenta, Qt::gray};
 
 Gameboard::Gameboard(QWidget *parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
 {
-
+    setFocusPolicy(Qt::StrongFocus);
     createBoard();
     timer  = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
     timer->start(400);
-    //timer->setInterval(50);
+
+    gameOver = false;
 }
 
-Gameboard::~Gameboard()
-{
 
-}
 
 void Gameboard::createBoard(){
 
@@ -176,9 +174,10 @@ void Gameboard::updateBoard()
     if(checkCollision()){
         curr_piece.move_vertical(-1);
         lockPiece();
-        clearRows();
+
         curr_piece.resetPiece();
     }
+    clearRows();
     this->repaint();
 }
 
@@ -190,7 +189,7 @@ bool Gameboard::checkCollision()
                 if((curr_piece.x + j) < 0 || (curr_piece.x + j) == 10){
                     return true;
                 }
-                if((curr_piece.y + i) == 20 || gameboard[curr_piece.y+i][curr_piece.x+j] != QColor(Qt::white)){
+                if((curr_piece.y + i) == 20 || (gameboard[curr_piece.y+i][curr_piece.x+j] != QColor(Qt::white) && curr_piece.y+i > 0)){
                     return true;
                 }
             }
@@ -292,7 +291,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
     for(int i = 0; i < 20; i++){
         for(int j = 0; j < 10; j++){
             painter.setBrush(QBrush(gameboard[i][j], Qt::SolidPattern));
-            painter.drawRect(QRect(j*20, i*20, 20, 20));
+            painter.drawRect(QRect(j*25, i*25, 25, 25));
         }
     }
 
@@ -300,9 +299,13 @@ void Gameboard::paintEvent(QPaintEvent *event){
         for(int j = 0; j < 5; j++){
             if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
                 painter.setBrush(QBrush(piece_col[curr_piece.n], Qt::SolidPattern));
-                painter.drawRect(QRect((curr_piece.x+j) * 20, (curr_piece.y+i) * 20, 20, 20));
+                painter.drawRect(QRect((curr_piece.x+j) * 25, (curr_piece.y+i) * 25, 25, 25));
             }
 
         }
+    }
+
+    if(gameOver){
+
     }
 }

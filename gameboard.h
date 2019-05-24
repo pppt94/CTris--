@@ -10,16 +10,15 @@
 #include "piece.h"
 
 
-class Gameboard : public QMainWindow
+class Gameboard : public QWidget
 {
     Q_OBJECT
 
 public:
     Gameboard(QWidget *parent = nullptr);
-    ~Gameboard();
 
     virtual void paintEvent(QPaintEvent *event);
-    void keyPressEvent(QKeyEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event);
     void createBoard();
     bool checkCollision();
     void lockPiece();
@@ -30,9 +29,10 @@ public:
     QTimer *timer;
     Piece curr_piece;
 
+    bool gameOver;
+
 public slots:
     void updateBoard();
-
 
 };
 
