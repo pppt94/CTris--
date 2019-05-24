@@ -291,7 +291,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
     for(int i = 0; i < 20; i++){
         for(int j = 0; j < 10; j++){
             painter.setBrush(QBrush(gameboard[i][j], Qt::SolidPattern));
-            painter.drawRect(QRect(j*20, i*20, 20, 20));
+            painter.drawRect(QRect(j*25, i*25, 25, 25));
         }
     }
 
@@ -299,7 +299,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
         for(int j = 0; j < 5; j++){
             if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
                 painter.setBrush(QBrush(piece_col[curr_piece.n], Qt::SolidPattern));
-                painter.drawRect(QRect((curr_piece.x+j) * 20, (curr_piece.y+i) * 20, 20, 20));
+                painter.drawRect(QRect((curr_piece.x+j) * 25, (curr_piece.y+i) * 25, 25, 25));
             }
 
         }
