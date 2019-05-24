@@ -9,6 +9,7 @@
 #include <iostream>
 #include "piece.h"
 
+class QLabel;
 
 class Gameboard : public QMainWindow
 {
@@ -30,9 +31,11 @@ public:
     QTimer *timer;
     Piece curr_piece;
 
+    bool gameOver;
+    QLabel* m_level;
+
 public slots:
     void updateBoard();
-
 
 };
 

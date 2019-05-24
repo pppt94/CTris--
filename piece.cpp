@@ -5,7 +5,7 @@ Piece::Piece()
     qsrand(time(NULL));
 
     x = 2;
-    y = 0;
+    y = -3;
     rotation = 0;
     n = qrand() % 7;
 }
@@ -30,7 +30,7 @@ void Piece::rotate(int direction)
 void Piece::resetPiece()
 {
     x = 2;
-    y = 0;
+    y = -4;
     rotation = 0;
     n = qrand() % 7;;
 }
