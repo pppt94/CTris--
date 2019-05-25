@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QLCDNumber>
 #include <QPushButton>
+#include <QApplication>
 
 
 Interface::Interface(QWidget *parent)
@@ -37,6 +38,7 @@ Interface::Interface(QWidget *parent)
     m_board = new Gameboard(contents);
 
     connect(startButton, &QPushButton::clicked, m_board, &Gameboard::startGame);
+    connect(quitButton , &QPushButton::clicked, this, &QApplication::quit);
 
     connect(m_board, &Gameboard::scoreChanged, m_score, QOverload<int>::of(&QLCDNumber::display));
     connect(m_board, &Gameboard::levelChanged, m_level, QOverload<int>::of(&QLCDNumber::display));

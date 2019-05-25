@@ -158,6 +158,8 @@ Gameboard::Gameboard(QWidget *parent)
 
 void Gameboard::startGame()
 {
+    createBoard();
+    curr_piece.resetPiece();
     score = 0;
     level = 1;
     speed = 400;
