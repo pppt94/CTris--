@@ -27,7 +27,7 @@ Interface::Interface(QWidget *parent)
         palette.setColor(m_next->backgroundRole(), Qt::white);
         m_next->setPalette(palette);
 }
-    m_line = new QLCDNumber(5);
+    m_level = new QLCDNumber(5);
     startButton = new QPushButton(tr("&Start"));
     pauseButton = new QPushButton(tr("&Pause"));
     scoreButton = new QPushButton(tr("&High Score"));
@@ -36,7 +36,13 @@ Interface::Interface(QWidget *parent)
 
     m_board = new Gameboard(contents);
 
+    connect(startButton, &QPushButton::clicked, m_board, &Gameboard::startGame);
+
     connect(m_board, &Gameboard::scoreChanged, m_score, QOverload<int>::of(&QLCDNumber::display));
+    connect(m_board, &Gameboard::levelChanged, m_level, QOverload<int>::of(&QLCDNumber::display));
+
+
+
 
 
     QGridLayout* layout = new QGridLayout(contents);
@@ -45,8 +51,8 @@ Interface::Interface(QWidget *parent)
     layout->addWidget(m_next, 1, 1);
     layout->addWidget(new QLabel(tr("Score"), contents), 2, 1, Qt::AlignCenter);
     layout->addWidget(m_score, 3, 1);
-    layout->addWidget(new QLabel(tr("Clear Lines"), contents), 4, 1, Qt::AlignCenter);
-    layout->addWidget(m_line, 5, 1);
+    layout->addWidget(new QLabel(tr("Level"), contents), 4, 1, Qt::AlignCenter);
+    layout->addWidget(m_level, 5, 1);
     layout->addWidget(startButton, 6, 1);
     layout->addWidget(scoreButton, 7, 1);
     layout->addWidget(pauseButton, 8, 1);

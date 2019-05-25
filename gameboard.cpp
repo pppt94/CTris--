@@ -149,15 +149,23 @@ Gameboard::Gameboard(QWidget *parent)
     : QWidget(parent)
 {
     setFocusPolicy(Qt::StrongFocus);
-    createBoard();
+
     timer  = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
-    timer->start(400);
-
-    gameOver = false;
-    score = 0;
+    createBoard();
+    running = false;
 }
 
+void Gameboard::startGame()
+{
+    score = 0;
+    level = 1;
+    speed = 400;
+    speed_up = 50;
+    timer->start(speed);
+    emit levelChanged(level);
+    running = true;
+}
 
 
 void Gameboard::createBoard(){
@@ -171,15 +179,17 @@ void Gameboard::createBoard(){
 
 void Gameboard::updateBoard()
 {
-    curr_piece.move_vertical(1);
-    if(checkCollision()){
-        curr_piece.move_vertical(-1);
-        lockPiece();
+    if(running){
+        curr_piece.move_vertical(1);
+        if(checkCollision()){
+            curr_piece.move_vertical(-1);
+            lockPiece();
 
-        curr_piece.resetPiece();
+            curr_piece.resetPiece();
+        }
+        clearRows();
+        this->repaint();
     }
-    clearRows();
-    this->repaint();
 }
 
 bool Gameboard::checkCollision()
@@ -243,6 +253,9 @@ void Gameboard::clearRows()
 
     score += rowsCount*10;
     emit scoreChanged(score);
+    if(rowsCount){
+        levelUp();
+    }
 }
 
 void Gameboard::instantDrop()
@@ -253,6 +266,16 @@ void Gameboard::instantDrop()
     curr_piece.move_vertical(-1);
 
     this->repaint();
+}
+
+void Gameboard::levelUp()
+{
+    if(score%50==0 && score != 0){
+        level++;
+        emit levelChanged(level);
+        speed -= speed_up;
+        timer->start(speed);
+    }
 }
 void Gameboard::keyPressEvent(QKeyEvent *event)
 {

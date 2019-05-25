@@ -19,9 +19,8 @@ class Interface : public QMainWindow
 public:
     Interface(QWidget *parent = nullptr);
     ~Interface();
-    QLabel* m_level;
     QLCDNumber* m_score;
-    QLCDNumber* m_line;
+    QLCDNumber* m_level;
     QLabel* m_next;
     QPushButton *startButton;
     QPushButton *pauseButton;
