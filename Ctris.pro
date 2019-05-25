@@ -25,15 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
         gameboard.cpp \
+        interface.cpp \
+        main.cpp \
         piece.cpp
 
 HEADERS += \
         gameboard.h \
+        interface.h \
         piece.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS +=

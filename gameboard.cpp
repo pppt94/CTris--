@@ -1,8 +1,6 @@
 #include "gameboard.h"
 #include "piece.h"
 #include <iostream>
-#include <QLabel>
-#include <QGridLayout>
 
 std::string shapes[7][4][5] =
    {{{"..X..",
@@ -148,45 +146,18 @@ std::string shapes[7][4][5] =
 QColor piece_col[7] = {Qt::red, Qt::yellow, Qt::green, Qt::blue, Qt::cyan, Qt::magenta, Qt::gray};
 
 Gameboard::Gameboard(QWidget *parent)
-    : QMainWindow(parent)
+    : QWidget(parent)
 {
-
-    QWidget* contents = new QWidget(this);
-    setCentralWidget(contents);
-
+    setFocusPolicy(Qt::StrongFocus);
     createBoard();
     timer  = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
     timer->start(400);
 
     gameOver = false;
-
-    m_level = new QLabel("0", contents);
-    m_level->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    m_level->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-    m_level->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
-
-    QGridLayout* layout = new QGridLayout(contents);
-    layout->setMargin(12);
-    layout->setSpacing(0);
-    layout->setColumnStretch(0, 1);
-    layout->setColumnMinimumWidth(1, 12);
-    layout->setRowStretch(11, 1);
-    layout->setRowMinimumHeight(2, 24);
-    layout->setRowMinimumHeight(5, 24);
-    layout->setRowMinimumHeight(8, 24);
-
-    layout->addWidget(new QLabel(tr("Level"), contents), 3, 2, 1, 1, Qt::AlignCenter);
-    layout->addWidget(m_level, 4, 2);
-
-    setWindowTitle(tr("C-tris ++"));
-    resize(800, 600);
 }
 
-Gameboard::~Gameboard()
-{
 
-}
 
 void Gameboard::createBoard(){
 
@@ -320,7 +291,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
     for(int i = 0; i < 20; i++){
         for(int j = 0; j < 10; j++){
             painter.setBrush(QBrush(gameboard[i][j], Qt::SolidPattern));
-            painter.drawRect(QRect(j*20, i*20, 20, 20));
+            painter.drawRect(QRect(j*25, i*25, 25, 25));
         }
     }
 
@@ -328,7 +299,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
         for(int j = 0; j < 5; j++){
             if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
                 painter.setBrush(QBrush(piece_col[curr_piece.n], Qt::SolidPattern));
-                painter.drawRect(QRect((curr_piece.x+j) * 20, (curr_piece.y+i) * 20, 20, 20));
+                painter.drawRect(QRect((curr_piece.x+j) * 25, (curr_piece.y+i) * 25, 25, 25));
             }
 
         }
