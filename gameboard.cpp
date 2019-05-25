@@ -155,6 +155,7 @@ Gameboard::Gameboard(QWidget *parent)
     timer->start(400);
 
     gameOver = false;
+    score = 0;
 }
 
 
@@ -240,6 +241,8 @@ void Gameboard::clearRows()
         }
     }
 
+    score += rowsCount*10;
+    emit scoreChanged(score);
 }
 
 void Gameboard::instantDrop()
@@ -300,6 +303,16 @@ void Gameboard::paintEvent(QPaintEvent *event){
             if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
                 painter.setBrush(QBrush(piece_col[curr_piece.n], Qt::SolidPattern));
                 painter.drawRect(QRect((curr_piece.x+j) * 25, (curr_piece.y+i) * 25, 25, 25));
+            }
+
+        }
+    }
+
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if(shapes[curr_piece.next_n][0][i][j] == 'X'){
+                painter.setBrush(QBrush(piece_col[curr_piece.next_n], Qt::SolidPattern));
+                painter.drawRect(QRect((j * 25)+250, (i * 25)+50, 25, 25));
             }
 
         }

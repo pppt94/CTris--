@@ -30,7 +30,9 @@ public:
     Piece curr_piece;
 
     bool gameOver;
-
+    int score;
+signals:
+    void scoreChanged(int score);
 public slots:
     void updateBoard();
 

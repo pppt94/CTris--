@@ -10,6 +10,7 @@
 class QLabel;
 class QLCDNumber;
 class QPushButton;
+class QtGlobal;
 
 class Interface : public QMainWindow
 {
@@ -21,12 +22,14 @@ public:
     QLabel* m_level;
     QLCDNumber* m_score;
     QLCDNumber* m_line;
-    QLCDNumber* m_next;
+    QLabel* m_next;
     QPushButton *startButton;
     QPushButton *pauseButton;
     QPushButton *scoreButton;
     QPushButton *quitButton;
     Gameboard* m_board;
+
+
 };
 
 #endif // INTERFACE_H

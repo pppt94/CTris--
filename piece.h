@@ -14,6 +14,7 @@ public:
 
     int x, y, rotation;
     int n;
+    int next_n;
 
 
 };
