@@ -169,6 +169,23 @@ void Gameboard::startGame()
     running = true;
 }
 
+void Gameboard::pauseGame()
+{
+    if (running) {
+        timer->stop();
+        running = false;
+    } else {
+        timer->start(speed);
+        running = true;
+    }
+}
+
+void Gameboard::showScore()
+{
+    high_score = new highscore(this);
+    high_score->show();
+}
+
 
 void Gameboard::createBoard(){
 

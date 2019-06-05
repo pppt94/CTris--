@@ -38,6 +38,8 @@ Interface::Interface(QWidget *parent)
     m_board = new Gameboard(contents);
 
     connect(startButton, &QPushButton::clicked, m_board, &Gameboard::startGame);
+    connect(scoreButton, &QPushButton::clicked, m_board, &Gameboard::showScore);
+    connect(pauseButton, &QPushButton::clicked, m_board, &Gameboard::pauseGame);
     connect(quitButton , &QPushButton::clicked, this, &QApplication::quit);
 
     connect(m_board, &Gameboard::scoreChanged, m_score, QOverload<int>::of(&QLCDNumber::display));
@@ -61,14 +63,6 @@ Interface::Interface(QWidget *parent)
     layout->addWidget(quitButton, 9, 1);
     layout->addWidget(m_board, 0, 0, 10, 0);
 
-//    layout->setRowStretch(0, 1);
-//    layout->setRowStretch(1, 2);
-//    layout->setRowStretch(2, 1);
-//    layout->setRowStretch(3, 2);
-//    layout->setRowStretch(4, 1);
-//    layout->setRowStretch(5, 2);
-//    layout->setColumnStretch(0, 2);
-//    layout->setColumnStretch(1, 1);
 
 
     setWindowTitle(tr("C-tris ++"));

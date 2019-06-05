@@ -26,12 +26,14 @@ CONFIG += c++11
 
 SOURCES += \
         gameboard.cpp \
+        highscore.cpp \
         interface.cpp \
         main.cpp \
         piece.cpp
 
 HEADERS += \
         gameboard.h \
+        highscore.h \
         interface.h \
         piece.h
 
@@ -40,4 +42,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-FORMS +=
+FORMS += \
+    highscore.ui

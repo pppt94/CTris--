@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <iostream>
 #include "piece.h"
+#include "highscore.h"
 
 
 class Gameboard : public QWidget
@@ -29,6 +30,7 @@ public:
 
     QColor gameboard[20][10];
     QTimer *timer;
+    highscore *high_score;
     Piece curr_piece;
 
     bool gameOver;
@@ -45,6 +47,8 @@ signals:
 public slots:
     void updateBoard();
     void startGame();
+    void pauseGame();
+    void showScore();
 
 };
 
