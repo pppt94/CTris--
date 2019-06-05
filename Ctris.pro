@@ -44,3 +44,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 FORMS += \
     highscore.ui
+
+DISTFILES += \
+    scores.txt
