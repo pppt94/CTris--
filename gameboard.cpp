@@ -153,7 +153,9 @@ Gameboard::Gameboard(QWidget *parent)
     timer  = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateBoard()));
     createBoard();
+    high_score = new highscore(this);
     running = false;
+    scoring = false;
 }
 
 void Gameboard::startGame()
@@ -182,7 +184,7 @@ void Gameboard::pauseGame()
 
 void Gameboard::showScore()
 {
-    high_score = new highscore(this);
+    running = false;
     high_score->show();
 }
 

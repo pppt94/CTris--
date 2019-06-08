@@ -35,6 +35,7 @@ public:
 
     bool gameOver;
     bool running;
+    bool scoring;
     int score;
     int level;
     int speed;

@@ -30,7 +30,7 @@ Interface::Interface(QWidget *parent)
 }
     m_level = new QLCDNumber(5);
     startButton = new QPushButton(tr("&Start"));
-    pauseButton = new QPushButton(tr("&Pause"));
+    pauseButton = new QPushButton(tr("&Pause/Resume"));
     scoreButton = new QPushButton(tr("&High Score"));
     quitButton = new QPushButton(tr("&Quit"));
     //m_board->set;
