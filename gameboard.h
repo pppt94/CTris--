@@ -8,6 +8,7 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QApplication>
+#include <QInputDialog>
 #include <iostream>
 #include "piece.h"
 #include "highscore.h"
@@ -30,6 +31,7 @@ public:
     void levelUp();
     bool checkFull();
     void endGame();
+    void saveScore();
 
 
     QColor gameboard[20][10];

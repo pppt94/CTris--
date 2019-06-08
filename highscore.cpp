@@ -31,6 +31,8 @@ highscore::highscore(QWidget *parent) :
     }
 
     file.close();
+    lowest_it = ui->tableWidget->item(7, 1);
+    lowest = lowest_it->text().toInt();
 }
 
 highscore::~highscore()

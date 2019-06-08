@@ -234,6 +234,8 @@ void Gameboard::updateBoard()
 void Gameboard::endGame(){
 
     running = false;
+    if(score > high_score->lowest)
+        saveScore();
     end.show();
     end.setText("Game Over :(<br>");
     end.setInformativeText("Do you want to play again?");
@@ -250,6 +252,12 @@ void Gameboard::endGame(){
           QApplication::quit();
           break;
     }
+}
+
+void Gameboard::saveScore(){
+    QString text = QInputDialog::getText(this, tr("Best Score!"),
+                                             tr("Congrats, your score is really good! <br>"
+                                                "Type your nick:"), QLineEdit::Normal);
 }
 
 bool Gameboard::checkFull()
