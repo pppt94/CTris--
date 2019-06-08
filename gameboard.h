@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QMessageBox>
 #include <iostream>
 #include "piece.h"
 #include "highscore.h"
@@ -26,12 +27,16 @@ public:
     void clearRows();
     void instantDrop();
     void levelUp();
+    bool checkFull();
+    void endGame();
 
 
     QColor gameboard[20][10];
     QTimer *timer;
     highscore *high_score;
     Piece curr_piece;
+
+    QMessageBox welcome;
 
     bool gameOver;
     bool running;

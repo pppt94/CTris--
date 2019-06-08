@@ -156,6 +156,21 @@ Gameboard::Gameboard(QWidget *parent)
     high_score = new highscore(this);
     running = false;
     scoring = false;
+
+    welcome.setText("<p align='center'><font size = 10 color = red >Welcome in the C-Tris++ Game!<br>"
+                    "<font size = 6>How to play? & Game control");
+    welcome.setInformativeText("<p align='center'><font size = 4>\n"
+                               "The goal of Tetris is to score as many points as possible,"
+                               "by clearing horizontal lines of Blocks. The player must rotate,"
+                               "move, and drop the falling Tetriminos inside the Matrix (playing field)."
+                               "Lines are cleared when they are filled with Blocks and have no empty spaces."
+                               "As lines are cleared, the level increases and Tetriminos fall faster,"
+                               "making the game progressively more challenging. If the Blocks land above"
+                               "the top of the playing field, the game is over.<br>"
+                               "<br>"
+                               "Left&Right&Down Arrow -> move block <br>"
+                               "Space -> instant drop");
+    welcome.show();
 }
 
 void Gameboard::startGame()
@@ -205,12 +220,28 @@ void Gameboard::updateBoard()
         if(checkCollision()){
             curr_piece.move_vertical(-1);
             lockPiece();
+            if(checkFull()){
+                endGame();
+            }
 
             curr_piece.resetPiece();
         }
         clearRows();
         this->repaint();
     }
+}
+
+void Gameboard::endGame(){
+    startGame();
+}
+
+bool Gameboard::checkFull()
+{
+    for(int i = 0; i < 10; i++){
+        if(gameboard[0][i] != QColor(Qt::white))
+            return true;
+    }
+    return false;
 }
 
 bool Gameboard::checkCollision()
@@ -356,7 +387,7 @@ void Gameboard::paintEvent(QPaintEvent *event){
         for(int j = 0; j < 5; j++){
             if(shapes[curr_piece.next_n][0][i][j] == 'X'){
                 painter.setBrush(QBrush(piece_col[curr_piece.next_n], Qt::SolidPattern));
-                painter.drawRect(QRect((j * 25)+250, (i * 25)+50, 25, 25));
+                painter.drawRect(QRect((j * 25)+280, (i * 25)+50, 25, 25));
             }
 
         }

@@ -19,9 +19,8 @@ Interface::Interface(QWidget *parent)
 
     //m_board->setGeometry(QRect(0, 0, 200, 600));
     m_score = new QLCDNumber(5);
-    m_score->setFixedSize(100, 100);
     m_next = new QLabel(contents);
-    m_next->setFixedSize(100, 100);
+    m_next->setFixedSize(140, 140);
     m_next->setAutoFillBackground(true);
     {
         QPalette palette = m_next->palette();
@@ -29,7 +28,7 @@ Interface::Interface(QWidget *parent)
         m_next->setPalette(palette);
 }
     m_level = new QLCDNumber(5);
-    startButton = new QPushButton(tr("&Start"));
+    startButton = new QPushButton(tr("&Start Game"));
     pauseButton = new QPushButton(tr("&Pause/Resume"));
     scoreButton = new QPushButton(tr("&High Score"));
     quitButton = new QPushButton(tr("&Quit"));
@@ -51,22 +50,22 @@ Interface::Interface(QWidget *parent)
 
     QGridLayout* layout = new QGridLayout(contents);
 
-    layout->addWidget(new QLabel(tr("Next Piece"), contents), 0, 1, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("<font size = 5 color = red>Next Piece"), contents), 0, 1, Qt::AlignCenter);
     layout->addWidget(m_next, 1, 1);
-    layout->addWidget(new QLabel(tr("Score"), contents), 2, 1, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("<font size = 5 color = red>Score"), contents), 2, 1, Qt::AlignCenter);
     layout->addWidget(m_score, 3, 1);
-    layout->addWidget(new QLabel(tr("Level"), contents), 4, 1, Qt::AlignCenter);
+    layout->addWidget(new QLabel(tr("<font size = 5 color = red>Level"), contents), 4, 1, Qt::AlignCenter);
     layout->addWidget(m_level, 5, 1);
-    layout->addWidget(startButton, 6, 1);
-    layout->addWidget(scoreButton, 7, 1);
-    layout->addWidget(pauseButton, 8, 1);
-    layout->addWidget(quitButton, 9, 1);
+    layout->addWidget(startButton, 7, 1);
+    layout->addWidget(scoreButton, 8, 1);
+    layout->addWidget(pauseButton, 9, 1);
+    layout->addWidget(quitButton, 10, 1);
     layout->addWidget(m_board, 0, 0, 10, 0);
 
 
 
-    setWindowTitle(tr("C-tris ++"));
-    resize(400, 520);
+    setWindowTitle(tr("C-Tris ++"));
+    resize(440, 550);
 }
 
 Interface::~Interface()
