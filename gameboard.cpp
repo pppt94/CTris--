@@ -232,7 +232,24 @@ void Gameboard::updateBoard()
 }
 
 void Gameboard::endGame(){
-    startGame();
+
+    running = false;
+    end.show();
+    end.setText("Game Over :(<br>");
+    end.setInformativeText("Do you want to play again?");
+    end.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    end.setDefaultButton(QMessageBox::Yes);
+
+    int answer = end.exec();
+
+    switch (answer) {
+      case QMessageBox::Yes:
+          startGame();
+          break;
+      case QMessageBox::No:
+          QApplication::quit();
+          break;
+    }
 }
 
 bool Gameboard::checkFull()

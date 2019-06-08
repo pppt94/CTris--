@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QApplication>
 #include <iostream>
 #include "piece.h"
 #include "highscore.h"
@@ -37,6 +38,7 @@ public:
     Piece curr_piece;
 
     QMessageBox welcome;
+    QMessageBox end;
 
     bool gameOver;
     bool running;
