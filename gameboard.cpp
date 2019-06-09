@@ -249,7 +249,7 @@ void Gameboard::endGame(){
           startGame();
           break;
       case QMessageBox::No:
-          QApplication::quit();
+          quitApp();
           break;
     }
 }

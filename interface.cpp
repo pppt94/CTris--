@@ -15,9 +15,6 @@ Interface::Interface(QWidget *parent)
     QWidget* contents = new QWidget(this);
     setCentralWidget(contents);
 
-
-
-    //m_board->setGeometry(QRect(0, 0, 200, 600));
     m_score = new QLCDNumber(5);
     m_next = new QLabel(contents);
     m_next->setFixedSize(140, 140);
@@ -32,7 +29,7 @@ Interface::Interface(QWidget *parent)
     pauseButton = new QPushButton(tr("&Pause/Resume"));
     scoreButton = new QPushButton(tr("&High Score"));
     quitButton = new QPushButton(tr("&Quit"));
-    //m_board->set;
+
 
     m_board = new Gameboard(contents);
 
@@ -43,6 +40,7 @@ Interface::Interface(QWidget *parent)
 
     connect(m_board, &Gameboard::scoreChanged, m_score, QOverload<int>::of(&QLCDNumber::display));
     connect(m_board, &Gameboard::levelChanged, m_level, QOverload<int>::of(&QLCDNumber::display));
+    connect(m_board, &Gameboard::quitApp, this, &QApplication::quit);
 
 
 

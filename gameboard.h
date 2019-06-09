@@ -53,6 +53,7 @@ public:
 signals:
     void scoreChanged(int score);
     void levelChanged(int level);
+    void quitApp();
 
 public slots:
     void updateBoard();
