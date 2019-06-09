@@ -257,10 +257,23 @@ void Gameboard::endGame(){
 }
 
 void Gameboard::saveScore(){
-    QString text = QInputDialog::getText(this, tr("Best Score!"),
-                                             tr("Congrats, your score is really good! <br>"
-                                                "Type your nick:"), QLineEdit::Normal);
-    insert_data(score, text);
+    player_name = "";
+
+    while(player_name == ""){
+        player_name = QInputDialog::getText(this, tr("Best Score!"),
+                                                 tr("Congrats, your score is really good! <br>"
+                                                    "Type your nick (without spaces):"), QLineEdit::Normal);
+        for(int i = 0; i < player_name.length(); i++){
+            if(player_name[i] == " "){
+                player_name = "";
+                break;
+            }
+        }
+    }
+
+
+
+    insert_data(score, player_name);
     high_score->sort_data();
 }
 
@@ -403,6 +416,7 @@ void Gameboard::keyPressEvent(QKeyEvent *event)
             break;
         }
     }
+    return;
 }
 
 void Gameboard::paintEvent(QPaintEvent *){

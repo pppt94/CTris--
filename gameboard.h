@@ -42,6 +42,7 @@ public:
 
     QMessageBox welcome;
     QMessageBox end;
+    QString player_name;
 
     bool gameOver;
     bool running;
