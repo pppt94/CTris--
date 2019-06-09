@@ -2,6 +2,7 @@
 #define HIGHSCORE_H
 
 #include <QDialog>
+#include <QFile>
 #include <QTableWidgetItem>
 
 
@@ -18,6 +19,9 @@ public:
     ~highscore();
     QTableWidgetItem * lowest_it;
     int lowest;
+    void update();
+    void sort_data();
+    QString path;
 
 private:
     Ui::highscore *ui;

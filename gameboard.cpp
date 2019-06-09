@@ -200,6 +200,7 @@ void Gameboard::pauseGame()
 void Gameboard::showScore()
 {
     running = false;
+    high_score->update();
     high_score->show();
 }
 
@@ -258,6 +259,20 @@ void Gameboard::saveScore(){
     QString text = QInputDialog::getText(this, tr("Best Score!"),
                                              tr("Congrats, your score is really good! <br>"
                                                 "Type your nick:"), QLineEdit::Normal);
+    insert_data(score, text);
+    high_score->sort_data();
+}
+
+void Gameboard::insert_data(int score, QString name){
+
+    QString path2 = qApp->applicationDirPath() + "/scores.txt";
+    QFile file2(path2);
+    file2.open(QIODevice::ReadWrite | QIODevice::Append | QIODevice::Text);
+    QTextStream in(&file2);
+    in << "\n";
+    in << name << " " << score;
+    file2.close();
+
 }
 
 bool Gameboard::checkFull()

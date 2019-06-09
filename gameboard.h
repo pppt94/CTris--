@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QInputDialog>
+#include <QTextStream>
 #include <iostream>
 #include "piece.h"
 #include "highscore.h"
@@ -32,6 +33,7 @@ public:
     bool checkFull();
     void endGame();
     void saveScore();
+    void insert_data(int score, QString name);
 
 
     QColor gameboard[20][10];
