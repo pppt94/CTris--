@@ -1,8 +1,6 @@
 #include "gameboard.h"
-#include "piece.h"
-#include <iostream>
 
-std::string shapes[7][4][5] =
+QString static shapes[7][4][5] =
    {{{"..X..",
       "..X..",
       "..X..",
@@ -143,7 +141,7 @@ std::string shapes[7][4][5] =
       ".XXX.",
       ".....",
       "....."}}};
-QColor piece_col[7] = {Qt::red, Qt::yellow, Qt::green, Qt::blue, Qt::cyan, Qt::magenta, Qt::gray};
+QColor static piece_col[7] = {Qt::red, Qt::yellow, Qt::green, Qt::blue, Qt::cyan, Qt::magenta, Qt::gray};
 
 Gameboard::Gameboard(QWidget *parent)
     : QWidget(parent)
@@ -184,6 +182,7 @@ void Gameboard::startGame()
     timer->start(speed);
     emit levelChanged(level);
     running = true;
+    starting = true;
 }
 
 void Gameboard::pauseGame()
@@ -192,8 +191,10 @@ void Gameboard::pauseGame()
         timer->stop();
         running = false;
     } else {
-        timer->start(speed);
-        running = true;
+        if(starting){
+            timer->start(speed);
+            running = true;
+        }
     }
 }
 
@@ -371,38 +372,40 @@ void Gameboard::levelUp()
 }
 void Gameboard::keyPressEvent(QKeyEvent *event)
 {
-    switch (event->key()) {
-    case Qt::Key_Left:
-        curr_piece.move_horizontal(-1);
-        if(checkCollision()){
-            curr_piece.move_horizontal(1);
-        }
-        this->repaint();
-        break;
-    case Qt::Key_Right:
-        curr_piece.move_horizontal(1);
-        if(checkCollision()){
+    if(running){
+        switch (event->key()) {
+        case Qt::Key_Left:
             curr_piece.move_horizontal(-1);
+            if(checkCollision()){
+                curr_piece.move_horizontal(1);
+            }
+            this->repaint();
+            break;
+        case Qt::Key_Right:
+            curr_piece.move_horizontal(1);
+            if(checkCollision()){
+                curr_piece.move_horizontal(-1);
+            }
+            this->repaint();
+            break;
+        case Qt::Key_Up:
+            curr_piece.rotate(1);
+            if(checkCollision()){
+                curr_piece.rotate(-1);
+            }
+            this->repaint();
+            break;
+        case Qt::Key_Down:
+            updateBoard();
+            break;
+        case Qt::Key_Space:
+            instantDrop();
+            break;
         }
-        this->repaint();
-        break;
-    case Qt::Key_Up:
-        curr_piece.rotate(1);
-        if(checkCollision()){
-            curr_piece.rotate(-1);
-        }
-        this->repaint();
-        break;
-    case Qt::Key_Down:
-        updateBoard();
-        break;
-    case Qt::Key_Space:
-        instantDrop();
-        break;
     }
 }
 
-void Gameboard::paintEvent(QPaintEvent *event){
+void Gameboard::paintEvent(QPaintEvent *){
 
     QPainter painter(this);
 
@@ -412,14 +415,15 @@ void Gameboard::paintEvent(QPaintEvent *event){
             painter.drawRect(QRect(j*25, i*25, 25, 25));
         }
     }
+    if(running){
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+                if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
+                    painter.setBrush(QBrush(piece_col[curr_piece.n], Qt::SolidPattern));
+                    painter.drawRect(QRect((curr_piece.x+j) * 25, (curr_piece.y+i) * 25, 25, 25));
+                }
 
-    for(int i = 0; i < 5; i++){
-        for(int j = 0; j < 5; j++){
-            if(shapes[curr_piece.n][curr_piece.rotation][i][j] == 'X'){
-                painter.setBrush(QBrush(piece_col[curr_piece.n], Qt::SolidPattern));
-                painter.drawRect(QRect((curr_piece.x+j) * 25, (curr_piece.y+i) * 25, 25, 25));
             }
-
         }
     }
 
@@ -431,9 +435,5 @@ void Gameboard::paintEvent(QPaintEvent *event){
             }
 
         }
-    }
-
-    if(gameOver){
-
     }
 }

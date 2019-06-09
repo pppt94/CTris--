@@ -10,7 +10,6 @@
 #include <QApplication>
 #include <QInputDialog>
 #include <QTextStream>
-#include <iostream>
 #include "piece.h"
 #include "highscore.h"
 
@@ -47,6 +46,7 @@ public:
     bool gameOver;
     bool running;
     bool scoring;
+    bool starting;
     int score;
     int level;
     int speed;

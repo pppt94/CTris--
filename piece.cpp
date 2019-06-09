@@ -9,6 +9,7 @@ Piece::Piece()
     rotation = 0;
     n = qrand() % 7;
     next_n = qrand() % 7;
+
 }
 void Piece::move_horizontal(int direction)
 {
